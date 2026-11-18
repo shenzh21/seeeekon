@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Seekontinue</string>
+    <string name="title_activity_main">Seekontinue</string>
+    <string name="package_name">app.liubai.chat</string>
+    <string name="custom_url_scheme">app.liubai.chat</string>
+</resources>
