@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "appId": "app.liubai.chat",
+  "versionCode": 6,
+  "versionName": "1.5-preview",
+  "releaseUrl": "https://github.com/shenzh21/seeeekon/releases/tag/v1.5-preview",
+  "downloadUrl": "https://github.com/shenzh21/seeeekon/releases/download/v1.5-preview/seeeekon-1.5-preview.apk",
+  "sha256": "09998213b44845160bcdcb48821aa3bb61d6cfbe4e192fc1017c98e1a3ab4fac",
+  "notes": [
+    "新增关于软件中的检查更新、下载主页和 GitHub 项目入口。",
+    "打开应用时自动检查新版本，支持稍后提醒；检查失败不影响聊天。",
+    "采用红白锦鲤图标与淡红主题，保留官方账户连接和历史导入。"
+  ]
+}
