@@ -29,7 +29,7 @@ try {
   try { & $gradle assembleDebug --no-daemon --console=plain; if ($LASTEXITCODE -ne 0) { throw 'Android build failed' } }
   finally { Pop-Location }
   New-Item -ItemType Directory -Force "$projectRoot/artifacts" | Out-Null
-  Copy-Item -LiteralPath "$projectRoot/android/app/build/outputs/apk/debug/app-debug.apk" -Destination "$projectRoot/artifacts/seekontinue-android-preview.apk"
-  (Get-FileHash "$projectRoot/artifacts/seekontinue-android-preview.apk" -Algorithm SHA256).Hash | Set-Content "$projectRoot/artifacts/seekontinue-android-preview.sha256"
-  Write-Host 'APK: artifacts/seekontinue-android-preview.apk'
+  Copy-Item -LiteralPath "$projectRoot/android/app/build/outputs/apk/debug/app-debug.apk" -Destination "$projectRoot/artifacts/seeeekon-android-preview.apk"
+  (Get-FileHash "$projectRoot/artifacts/seeeekon-android-preview.apk" -Algorithm SHA256).Hash | Set-Content "$projectRoot/artifacts/seeeekon-android-preview.sha256"
+  Write-Host 'APK: artifacts/seeeekon-android-preview.apk'
 } finally { Pop-Location }

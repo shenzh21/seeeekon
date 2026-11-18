@@ -1,5 +1,5 @@
 export const zh = {
-  voiceInputNativePermissionDenied: '无法使用麦克风，请在系统设置中允许 Seekontinue 录音，并确认系统麦克风开关已开启。',
+  voiceInputNativePermissionDenied: '无法使用麦克风，请在系统设置中允许 seeeekon 录音，并确认系统麦克风开关已开启。',
   pinnedChats: '置顶',
   pinChat: '置顶对话',
   unpinChat: '取消置顶',
@@ -16,7 +16,7 @@ export const zh = {
   sessionSaveFailed: '对话或附件尚未保存到本机，关闭页面可能丢失，请重试',
   sessionDeleteFailed: '删除对话失败，请重试',
   settings: '设置',
-  appName: 'Seekontinue',
+  appName: 'seeeekon',
   deleteSessionModalContentTitle: '永久删除对话',
   deleteSessionWithFilesDescription: '删除后，该对话及其中上传的文件将不可恢复。确认删除吗？',
   cancel: '取消',

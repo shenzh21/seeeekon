@@ -1,4 +1,8 @@
-# chat-demo
+# seeeekon
+
+独立第三方 DeepSeek 客户端，原名 Seekontinue。Android 说明见 [docs/ANDROID.md](docs/ANDROID.md)。以下保留官方 chat-demo 上游使用说明及许可来源。
+
+## 上游 chat-demo
 
 English | [简体中文](README.zh-CN.md)
 

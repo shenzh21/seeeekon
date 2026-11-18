@@ -1,7 +1,7 @@
 {
-  "name": "chat-demo",
+  "name": "seeeekon",
   "version": "0.1.1",
-  "description": "基于 DeepSeek API 的静态聊天示例。",
+  "description": "seeeekon：使用个人 DeepSeek 账户的独立第三方客户端。",
   "license": "MIT",
   "private": true,
   "type": "module",

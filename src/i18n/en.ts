@@ -1,7 +1,7 @@
 import type { zh } from './zh.js'
 
 export const en = {
-  voiceInputNativePermissionDenied: 'Allow microphone access for Seekontinue in system settings and check the system microphone switch.',
+  voiceInputNativePermissionDenied: 'Allow microphone access for seeeekon in system settings and check the system microphone switch.',
   pinnedChats: 'Pinned',
   pinChat: 'Pin chat',
   unpinChat: 'Unpin chat',
@@ -19,7 +19,7 @@ export const en = {
     'Chats or attachments have not been saved locally. Retry before closing this page.',
   sessionDeleteFailed: 'Unable to delete this chat. Please try again.',
   settings: 'Settings',
-  appName: 'Seekontinue',
+  appName: 'seeeekon',
   deleteSessionModalContentTitle: 'Delete chat?',
   deleteSessionWithFilesDescription:
     'This chat and its uploaded files will be permanently deleted and cannot be recovered. Delete this chat?',

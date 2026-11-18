@@ -227,7 +227,7 @@ export async function createOfficialCredential(
           const input = document.querySelector('input[placeholder="输入 API key 的名称"]');
           if(input) {
             const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;
-            setter.call(input, 'Seekontinue Android'); input.dispatchEvent(new Event('input',{bubbles:true}));
+            setter.call(input, 'seeeekon Android'); input.dispatchEvent(new Event('input',{bubbles:true}));
             if(!window.__liubaiNameFilled) window.__liubaiNameFilled = Date.now();
             if(Date.now()-window.__liubaiNameFilled > 1000) {
               const create = buttons.find(el=>el.textContent.trim() === '创建');
@@ -244,7 +244,7 @@ export async function createOfficialCredential(
         progress(data.phase === 'login' ? '请登录开放平台' : '正在连接账户', data.phase !== 'login')
       }
       if (data.kind === 'error') {
-        fail(new Error('未能接收新密钥。重试前可在官方平台撤销未使用的“Seekontinue Android”密钥。'))
+        fail(new Error('未能接收新密钥。重试前可在官方平台撤销未使用的“seeeekon Android”密钥。'))
       }
       if (
         data.kind === 'key' &&

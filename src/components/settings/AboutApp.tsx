@@ -6,7 +6,7 @@ export const AboutApp = () => {
   const [filter, setFilter] = useState('')
   return (
     <section className="about-app">
-      <h3>Seekontinue</h3>
+      <h3>seeeekon</h3>
       <p className="quiet-text">版本 {notices.version}</p>
       <p>使用自己的 DeepSeek 账户聊天、导入历史的独立第三方客户端，与 DeepSeek 官方无隶属关系。</p>
       <p>{nativeApp

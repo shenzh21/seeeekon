@@ -383,7 +383,8 @@ try {
     true
   )
   await app.getByRole('tab', { name: '关于软件' }).click()
-  await app.getByText('版本 1.1-preview', { exact: true }).waitFor()
+  const version = /versionName\s+"([^"]+)"/.exec(await readFile('android/app/build.gradle', 'utf8'))[1]
+  await app.getByText(`版本 ${version}`, { exact: true }).waitFor()
   await app.getByText('chat-demo · MIT 许可证', { exact: true }).click()
   await app.getByText('Permission is hereby granted', { exact: false }).first().waitFor()
   await app.getByRole('textbox', { name: '查找开源组件' }).fill('@capgo/capacitor-inappbrowser')

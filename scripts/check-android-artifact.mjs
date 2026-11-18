@@ -1,11 +1,13 @@
 import { readFile } from 'node:fs/promises'
 import { unzipSync } from 'fflate'
 import assert from 'node:assert/strict'
-const files = unzipSync(new Uint8Array(await readFile('artifacts/seekontinue-android-preview.apk')))
+const files = unzipSync(new Uint8Array(await readFile('artifacts/seeeekon-android-preview.apk')))
 const names = Object.keys(files)
 assert(!names.some(name => /(?:^|\/)\.env(?:\.|$)/.test(name)))
 assert(!names.some(name => /(?:^|\/)(server|tests|\.local)\//.test(name)))
 const config = JSON.parse(new TextDecoder().decode(files['assets/capacitor.config.json']))
+assert.equal(config.appName, 'seeeekon')
+assert.equal(config.appId, 'app.liubai.chat')
 assert.equal(config.loggingBehavior, 'none')
 assert.equal(config.android.webContentsDebuggingEnabled, false)
 assert.equal(config.server.url, undefined)

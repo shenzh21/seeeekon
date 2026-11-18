@@ -54,7 +54,7 @@ export const EmptyBalanceNotice = () => {
       }
     >
       <p>开始聊天前，请从侧栏点“DeepSeek 官方充值”。</p>
-      <p className="quiet-text">充值直接在 DeepSeek 官方平台完成，Seekontinue 不收款。</p>
+      <p className="quiet-text">充值直接在 DeepSeek 官方平台完成，seeeekon 不收款。</p>
     </Modal>
   )
 }
