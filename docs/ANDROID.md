@@ -1,6 +1,6 @@
 # seeeekon Android 预览版
 
-当前品牌为 `seeeekon`，1.3-preview / versionCode 4。此次统一 App 显示名、界面、麦克风提示、以后新建的专用密钥名称与构建产物文件名。应用 ID `app.liubai.chat`、本机数据库和 Keystore 标识保持原值，以保留更新兼容性；既有官方密钥不自动更名或撤销。图标尚未定稿，改名包继续使用原有图标。
+当前品牌为 `seeeekon`，1.5-preview / versionCode 6。新增关于页的检查更新、下载主页、GitHub 入口，以及前台更新提醒。采用用户提供并确认的红白锦鲤图案，统一桌面图标、启动图和界面标识；现有品牌色配置改为淡红色，保留浅色/深色/跟随系统切换。应用 ID `app.liubai.chat`、本机数据库和 Keystore 标识保持原值，以保留更新兼容性；既有官方密钥不自动更名或撤销。头像与图标的再生成说明见 [品牌资源](brand/seeeekon/README.md)。
 
 本版本以 Android App 为主：复用 React 网页、官方 chat-demo 的聊天与 IndexedDB 导入链，Capacitor 打包本地资源。Android 8.0（API 26）及以上。
 
@@ -20,6 +20,8 @@
 会话的“更多”菜单支持置顶/取消置顶，使用现有 Session、摘要及 IndexedDB 写入链；旧记录缺省为不置顶，不变更数据库版本。归档的会话和索引均保留 pinned 元数据，不影响消息和上下文。
 
 设置新增“关于软件”：版本、独立第三方说明、本机数据说明、官方开源来源与离线许可证。许可生成规则见 `licenses/README.md`。
+
+“关于软件”还提供手动检查更新、下载主页和 GitHub 项目入口。前台打开/恢复时，最多每 6 小时检查一次 GitHub Pages 的公开版本文件；失败静默，不影响聊天。稍后提醒会为当前版本延后 24 小时，手动检查不受限制。检测按 Android versionCode 比较，不提示降级；设置、迁移或回复进行中不会自动弹出。更新跳转复用现有 Capgo Custom Tabs，由浏览器下载 APK、用户通过系统确认安装。该链路不使用 DeepSeek 密钥、不采集设备 ID 或日活，不添加依赖或后台推送服务。GitHub 网络不可用时可稍后重试。
 
 ## 本机实现
 

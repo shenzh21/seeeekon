@@ -20,6 +20,8 @@ type Settings = {
   thinking: boolean
   search: boolean
   siderCollapsed: boolean
+  updateCheckedAt: number
+  updateDeferred: string
 }
 
 const KEYS = {
@@ -33,6 +35,8 @@ const KEYS = {
   thinking: 'chat-demo:thinking',
   search: 'chat-demo:search',
   siderCollapsed: 'chat-demo:sider-collapsed',
+  updateCheckedAt: 'chat-demo:update-checked-at',
+  updateDeferred: 'chat-demo:update-deferred',
 } as const
 
 const read = (key: string) => {
@@ -105,7 +109,19 @@ export const useSettings = create<Settings>(() => ({
   thinking: read(KEYS.thinking) === 'true',
   search: read(KEYS.search) === 'true',
   siderCollapsed: read(KEYS.siderCollapsed) === 'true',
+  updateCheckedAt: Number(read(KEYS.updateCheckedAt)) || 0,
+  updateDeferred: read(KEYS.updateDeferred) || '',
 }))
+
+export const setUpdateCheckedAt = (time: number) => {
+  write(KEYS.updateCheckedAt, String(time))
+  useSettings.setState({ updateCheckedAt: time })
+}
+
+export const setUpdateDeferred = (value: string) => {
+  write(KEYS.updateDeferred, value || null)
+  useSettings.setState({ updateDeferred: value })
+}
 
 export const setServiceMode = (serviceMode: Settings['serviceMode']) => {
   if (nativeApp) {

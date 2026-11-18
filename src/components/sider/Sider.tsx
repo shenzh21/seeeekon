@@ -7,6 +7,7 @@ import { groupSessions } from '../../services/chat/sessionGroups.js'
 import { newChat, removeSession, useChatStore } from '../../services/chat/store.js'
 import type { SessionSummary } from '../../services/chat/types.js'
 import { Button } from '../base/Button.js'
+import { BrandMark } from '../base/BrandMark.js'
 import { IconButton } from '../base/IconButton.js'
 import { Modal } from '../base/Modal.js'
 import { showToast } from '../base/toastState.js'
@@ -59,7 +60,7 @@ export const Sider = ({ mobile = false }: { mobile?: boolean }) => {
     <div className={clsx(styles.sider, mobile && styles.mobile)}>
       <div className={styles.top}>
         <div className={styles.appName}>
-          <span className="brand-symbol">◒</span> {t('appName')}
+          <BrandMark className="brand-symbol" /> {t('appName')}
         </div>
         <IconButton
           size="m"

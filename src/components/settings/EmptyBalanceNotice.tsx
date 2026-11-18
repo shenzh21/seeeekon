@@ -7,6 +7,7 @@ import { useSettingsDialog } from './settingsDialogState.js'
 import { openMobileSider } from '../sider/mobileSiderState.js'
 import { Button } from '../base/Button.js'
 import { Modal } from '../base/Modal.js'
+import { useUpdates } from '../../services/updates.js'
 
 export const EmptyBalanceNotice = () => {
   const wallet = useWallet()
@@ -14,6 +15,7 @@ export const EmptyBalanceNotice = () => {
   const settingsOpen = useSettingsDialog((s) => s.open)
   const migrating = useMigration((s) => s.busy)
   const [dismissed, setDismissed] = useState(false)
+  const updatePrompt = useUpdates((s) => s.prompt)
   useEffect(() => {
     if (wallet.cents !== null && wallet.cents > 0) {
       setDismissed(false)
@@ -28,7 +30,8 @@ export const EmptyBalanceNotice = () => {
     wallet.open ||
     settingsOpen ||
     migrating ||
-    dismissed
+    dismissed ||
+    updatePrompt
   ) {
     return null
   }

@@ -286,6 +286,8 @@ const openImportSettings = async () => {
   await app.getByRole('button', { name: '打开边栏', exact: true }).click()
   await app.getByRole('button', { name: '导入 DeepSeek 对话' }).last().click()
 }
+// Keep the migration suite independent of the live publication/update service.
+await context.route('https://shenzh21.github.io/seeeekon/latest.json', route => route.fulfill({status: 503, body: ''}))
 const waitHome = async () => {
   await app.getByRole('dialog').waitFor({ state: 'hidden', timeout: 20000 })
   await app.getByRole('button', { name: '打开边栏', exact: true }).waitFor()

@@ -2,6 +2,14 @@
 
 独立第三方 DeepSeek 客户端，原名 Seekontinue。Android 说明见 [docs/ANDROID.md](docs/ANDROID.md)。以下保留官方 chat-demo 上游使用说明及许可来源。
 
+**[下载主页](https://shenzh21.github.io/seeeekon/) · [Android APK / 更新说明](https://github.com/shenzh21/seeeekon/releases)**
+
+Android 8.0 及以上。使用自己的 DeepSeek 官方账户与余额，支持可选导入历史、本地对话、置顶与主题切换。免费开源客户端，与 DeepSeek 官方无隶属关系；API 使用与充值由官方计费。
+
+从 1.5-preview 起，打开 App 会检查更新；也可在“设置 → 关于软件”手动检查、打开下载主页或 GitHub 项目。旧版本尚无检查更新功能，需要先手动安装一次。已有用户直接覆盖安装，勿先卸载；卸载会删除本机数据。
+
+发布与 GitHub Pages 维护说明见 [docs/RELEASING.md](docs/RELEASING.md)。
+
 ## 上游 chat-demo
 
 English | [简体中文](README.zh-CN.md)

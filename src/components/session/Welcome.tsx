@@ -1,6 +1,7 @@
 import { useIsMobile } from '../../app/viewport.js'
 import { useTranslate } from '../../i18n/index.js'
 import { ChatInput } from '../chatInput/ChatInput.js'
+import { BrandMark } from '../base/BrandMark.js'
 import { MobileHeader } from './MobileHeader.js'
 import styles from './Welcome.module.css'
 
@@ -13,9 +14,7 @@ export const Welcome = () => {
       {isMobile ? <MobileHeader /> : null}
       <div className={styles.welcome}>
         <div className="welcome-intro">
-          <div className="welcome-mark" aria-hidden>
-            ◒
-          </div>
+          <BrandMark className="welcome-mark" />
           <div className={styles.greeting}>让对话，继续。</div>
           <p>熟悉的回应，值得好好延续。</p>
         </div>
