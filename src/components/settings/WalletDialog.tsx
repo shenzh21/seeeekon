@@ -26,7 +26,7 @@ export const WalletDialog = () => {
         <Button onClick={() => void openOfficialAccount('https://platform.deepseek.com/usage')}>
           前往官方充值
         </Button>
-        <Button variant="outlined" onClick={() => void refreshWallet()}>
+        <Button variant="outlined" onClick={() => void refreshWallet({ interactive: true })}>
           刷新余额
         </Button>
         <p role="status">{wallet.error}</p>

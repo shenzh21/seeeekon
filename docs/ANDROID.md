@@ -1,6 +1,8 @@
 # seeeekon Android 预览版
 
-当前品牌为 `seeeekon`，1.5-preview / versionCode 6。新增关于页的检查更新、下载主页、GitHub 入口，以及前台更新提醒。采用用户提供并确认的红白锦鲤图案，统一桌面图标、启动图和界面标识；现有品牌色配置改为淡红色，保留浅色/深色/跟随系统切换。应用 ID `app.liubai.chat`、本机数据库和 Keystore 标识保持原值，以保留更新兼容性；既有官方密钥不自动更名或撤销。头像与图标的再生成说明见 [品牌资源](brand/seeeekon/README.md)。
+当前版本为 `seeeekon` 1.6-preview（versionCode 7）。遇到上下文已满提示时，可选择「压缩并新建对话」。当前 API 分段总结所选分支的文字和未答问题，附件仅引用文件名。生成摘要按 API 用量计费，支持中途取消和失败重试。摘要完成后会打开独立的新会话，原会话仍可查看。参见[超限界面](context-preview/01-context-full.png)与[续聊界面](context-preview/02-summary-chat.png)，两图使用模拟内容。
+
+1.6 也修复了未连接账户时的余额、手动刷新和官方充值入口。侧栏显示“未连接 · 点击登录”，手动操作会进入连接页面，自动刷新保持静默。应用 ID 为 `app.liubai.chat`。头像与图标的再生成说明见[品牌资源](brand/seeeekon/README.md)。
 
 本版本以 Android App 为主：复用 React 网页、官方 chat-demo 的聊天与 IndexedDB 导入链，Capacitor 打包本地资源。Android 8.0（API 26）及以上。
 

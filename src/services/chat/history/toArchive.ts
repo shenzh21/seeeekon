@@ -181,7 +181,10 @@ const assistantFragments = (message: AssistantMessage): Fragment[] => {
   return fragments
 }
 
-const replyStatus = ({ status, stopReason }: AssistantMessage): ChatMessageStatus => {
+const replyStatus = ({ status, stopReason, contextLimit }: AssistantMessage): ChatMessageStatus => {
+  if (contextLimit) {
+    return 'CONTEXT_LENGTH_EXCEEDED'
+  }
   if (stopReason === 'refusal') {
     return 'CONTENT_FILTER'
   }

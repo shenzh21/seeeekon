@@ -295,6 +295,19 @@ const waitHome = async () => {
 }
 try {
   await app.goto(origin)
+  await app.getByRole('button', { name: '连接 DeepSeek', exact: true }).waitFor()
+  await app.getByRole('button', { name: '关闭', exact: true }).click()
+  await app.getByRole('button', { name: '打开边栏', exact: true }).click()
+  await app.getByText('未连接 · 点击登录', { exact: true }).last().waitFor()
+  for (const name of ['账户余额', '刷新余额', 'DeepSeek 官方充值 ↗']) {
+    await app.getByRole('button', { name, exact: name !== '账户余额' }).last().click()
+    await app.getByRole('button', { name: '连接 DeepSeek', exact: true }).waitFor()
+    assert.equal(await app.getByRole('dialog', { name: 'DeepSeek 官方余额', exact: true }).count(), 0)
+    assert.equal(openCount, 0, 'No official browser opens before connection consent')
+    if (name !== 'DeepSeek 官方充值 ↗') {
+      await app.getByRole('button', { name: '关闭', exact: true }).click()
+    }
+  }
   await app.getByRole('button', { name: '连接 DeepSeek', exact: true }).click()
   await app.screenshot({ path: 'docs/android-connect-preview.png' })
   await app.getByRole('button', { name: '同意并连接', exact: true }).click()
@@ -313,6 +326,9 @@ try {
   balance = '12.98'
   await app.getByRole('button', { name: '刷新余额', exact: true }).last().click()
   await app.getByText('¥ 12.98', { exact: true }).last().waitFor()
+  await app.getByRole('button', { name: /账户余额/ }).last().click()
+  await app.getByRole('dialog', { name: 'DeepSeek 官方余额', exact: true }).waitFor()
+  await app.getByRole('button', { name: '关闭', exact: true }).click()
   await app.getByRole('button', { name: '设置', exact: true }).last().click()
   await app.getByRole('button', { name: 'DeepSeek 账户 →', exact: true }).click()
   await app.getByRole('button', { name: '重新连接账户', exact: true }).click()
@@ -430,8 +446,20 @@ try {
   assert.equal(downloads, 0, 'ZIP downloads must stay in the import bridge')
   await mkdir('docs', { recursive: true })
   await app.screenshot({ path: 'docs/android-desktop-preview.png' })
+  await app.getByRole('button', { name: '打开边栏', exact: true }).click()
+  await app.getByRole('button', { name: '设置', exact: true }).last().click()
+  await app.getByRole('button', { name: 'DeepSeek 账户 →', exact: true }).click()
+  await app.getByRole('button', { name: '断开本机连接', exact: true }).click()
+  await app.getByRole('button', { name: '连接 DeepSeek', exact: true }).waitFor()
+  await app.getByRole('button', { name: '关闭', exact: true }).click()
+  await app.getByRole('button', { name: /账户余额/ }).last().click()
+  await app.getByRole('button', { name: '连接 DeepSeek', exact: true }).waitFor()
+  assert.equal(await app.getByRole('dialog', { name: 'DeepSeek 官方余额', exact: true }).count(), 0)
+  await app.reload()
+  await app.getByRole('button', { name: '连接 DeepSeek', exact: true }).waitFor()
+  assert.equal(keySaved, false, 'Disconnected state persists across reload')
   console.log(
-    'PASS: optional import/skip, home return, zero balance guidance, official recharge entry, pin/unpin persistence and ZIP metadata, offline licenses, native bridge, new ZIP, duplicate merge, corrupt preservation, cancel cleanup, context continuation, split UTF-8 stream, stop'
+    'PASS: account entry login guards before connection and after disconnect/reload; connected wallet; optional import/skip, home return, zero balance guidance, official recharge entry, pin/unpin persistence and ZIP metadata, offline licenses, native bridge, new ZIP, duplicate merge, corrupt preservation, cancel cleanup, context continuation, split UTF-8 stream, stop'
   )
 } catch (error) {
   console.error('APP', (await app.locator('body').innerText()).slice(-3000), 'ERRORS', errors)

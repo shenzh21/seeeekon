@@ -86,6 +86,8 @@ export type AssistantMessage = MessageBranch & {
   /** 是否允许作为续写前缀；仍需满足回复状态与内容限制。 */
   prefix: boolean
   status: ReplyStatus
+  /** Explicit input-context limit from the API or an imported archive. */
+  contextLimit?: true
   /** 可识别的内容块按接收顺序排列；续写产生的块追加在已有块之后 */
   blocks: ReplyBlock[]
   stopReason?: StopReason

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslate } from '../../i18n/index.js'
 import { IconPanelLeftOutline16, IconSettingsOutline16, NewChatIcon } from '../base/icons.js'
-import { setSiderCollapsed } from '../../services/settings.js'
+import { setSiderCollapsed, useSettings } from '../../services/settings.js'
 import { groupSessions } from '../../services/chat/sessionGroups.js'
 import { newChat, removeSession, useChatStore } from '../../services/chat/store.js'
 import type { SessionSummary } from '../../services/chat/types.js'
@@ -22,6 +22,7 @@ import { openOfficialAccount } from '../../services/migration/native.js'
 /** 展开的侧边栏：名称与收起按钮、开启新对话、按时间分组的会话列表、底部设置；移动端放在抽屉里，收起按钮关闭抽屉 */
 export const Sider = ({ mobile = false }: { mobile?: boolean }) => {
   const t = useTranslate()
+  const connected = useSettings((state) => Boolean(state.apiKey))
   const cents = useWallet((state) => state.cents)
   const walletLoading = useWallet((state) => state.loading)
   const walletError = useWallet((state) => state.error)
@@ -120,15 +121,24 @@ export const Sider = ({ mobile = false }: { mobile?: boolean }) => {
         <div className="wallet-row">
           <button className="wallet-shortcut" onClick={openWallet}>
             <span>
-              账户余额<small>{nativeApp ? 'DeepSeek 官方余额' : '体验版 · 模拟'}</small>
+              账户余额
+              <small>
+                {nativeApp
+                  ? connected
+                    ? 'DeepSeek 官方余额'
+                    : '未连接 · 点击登录'
+                  : '体验版 · 模拟'}
+              </small>
             </span>
-            <strong>¥ {cents === null ? '—' : money(cents)}</strong>
+            <strong>
+              {nativeApp && !connected ? '登录' : `¥ ${cents === null ? '—' : money(cents)}`}
+            </strong>
           </button>
           <button
             type="button"
             className="wallet-refresh"
             disabled={walletLoading}
-            onClick={() => void refreshWallet()}
+            onClick={() => void refreshWallet({ interactive: true })}
             aria-label="刷新余额"
           >
             <span aria-hidden="true">↻</span>

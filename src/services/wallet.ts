@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { nativeApp, nativeFetch } from './native.js'
 import { useSettings } from './settings.js'
+import { ensureApiKey } from '../components/settings/settingsDialogState.js'
 
 export type WalletEntry = { id: string; amount: number; label: string; at: number }
 type Wallet = {
@@ -18,7 +19,11 @@ export const useWallet = create<Wallet>(() => ({
   loading: false,
 }))
 export const money = (cents: number) => (cents / 100).toFixed(2)
-export const refreshWallet = async () => {
+export const refreshWallet = async ({ interactive = false } = {}) => {
+  if (nativeApp && interactive && !ensureApiKey()) {
+    useWallet.setState({ open: false, cents: null, entries: [], error: null })
+    return
+  }
   if (useWallet.getState().loading) {
     return
   }
@@ -61,6 +66,10 @@ export const refreshWallet = async () => {
   }
 }
 export const openWallet = () => {
+  if (nativeApp && !ensureApiKey()) {
+    useWallet.setState({ open: false, cents: null, entries: [], error: null })
+    return
+  }
   useWallet.setState({ open: true })
   void refreshWallet()
 }

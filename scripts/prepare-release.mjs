@@ -16,9 +16,9 @@ fs.writeFileSync('docs/latest.json', JSON.stringify({
   downloadUrl: `https://github.com/shenzh21/seeeekon/releases/download/v${versionName}/${name}`,
   sha256,
   notes: [
-    '新增关于软件中的检查更新、下载主页和 GitHub 项目入口。',
-    '打开应用时自动检查新版本，支持稍后提醒；检查失败不影响聊天。',
-    '采用红白锦鲤图标与淡红主题，保留官方账户连接和历史导入。',
+    '遇到上下文已满提示，可选择「压缩并新建对话」。原对话和提示保留，摘要完成后可在新对话接着聊。',
+    '按当前分支分段总结文字和未答问题，支持取消和重试。生成摘要消耗 API 额度，附件仅引用文件名。',
+    '未连接账户时，点击余额、手动刷新或官方充值会进入连接页。',
   ],
 }, null, 2) + '\n')
 console.log(`Prepared ${name} and GitHub Pages update manifest`)

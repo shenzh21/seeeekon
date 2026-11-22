@@ -15,6 +15,8 @@ import { SiteThumbnails } from '../search/SiteLogo.js'
 import { toggleSearchPanel, useSearchPanel } from '../search/searchPanelState.js'
 import { ReadAloudButton } from './ReadAloudButton.js'
 import { CopyButton } from './CopyButton.js'
+import { CompactChatButton } from './CompactChatButton.js'
+import { isContextLimit } from '../../services/chat/contextLimit.js'
 import { ReplyArea } from './ReplyArea.js'
 import { useReplyView } from './useReplyView.js'
 import {
@@ -126,6 +128,9 @@ export const AssistantMessage = memo(function AssistantMessage({
             ) : null}
           </span>
         </div>
+      ) : null}
+      {isLast && !busy && !refused && isContextLimit(message) ? (
+        <CompactChatButton sessionId={sessionId} replyId={message.id} />
       ) : null}
       {!streaming && !refused && view.searchResults.length > 0 ? (
         <div

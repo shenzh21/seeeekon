@@ -1,6 +1,12 @@
 import type { zh } from './zh.js'
 
 export const en = {
+  compactChat: 'Summarize and start a new chat',
+  compactHint: 'Use the current API to summarize this branch in sections. API usage charges apply. Attachments are referenced by name.',
+  compactWorking: 'Summarizing…',
+  compactIncomplete: 'Could not complete the summary. Please try again.',
+  compactTitle: '{title} (continued)',
+  compactRequest: 'Summarize the previous conversation for reference in this chat.',
   voiceInputNativePermissionDenied: 'Allow microphone access for seeeekon in system settings and check the system microphone switch.',
   pinnedChats: 'Pinned',
   pinChat: 'Pin chat',

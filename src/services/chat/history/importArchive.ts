@@ -115,7 +115,19 @@ export const importArchive = async (file: File): Promise<void> => {
         // 账号信息（已脱敏）不导入；文件可能缺失。
         await skipEntry(entry)
       } else if (sessionId !== null && !index) {
-        const local = toLocalSession(readSessionFile(await readJson(entry)))
+        const file = readSessionFile(await readJson(entry))
+        const local = toLocalSession(file)
+        // Preserve the signal for the optional continuation action after upstream conversion.
+        const fullReplies = new Set(
+          file.messages
+            .filter((m) => m.status === 'CONTEXT_LENGTH_EXCEEDED')
+            .map((m) => String(m.id))
+        )
+        for (const message of local.session.messages) {
+          if (message.role === 'assistant' && fullReplies.has(message.id)) {
+            message.contextLimit = true
+          }
+        }
         if (local.session.id !== sessionId || imported.has(sessionId)) {
           fail('backupIncomplete')
         }

@@ -1,4 +1,7 @@
 import { create } from 'zustand'
+import { translate } from '../../i18n/index.js'
+import { summarizeBranch } from './compact.js'
+import { isContextLimit } from './contextLimit.js'
 import { createId } from '../../utils/id.js'
 import { ApiError, streamMessage } from '../api/client.js'
 import type { ChatModel, CreateMessageRequest } from '../api/types.js'
@@ -559,6 +562,61 @@ const removeSessionData = async (id: string): Promise<boolean> => {
 
 export const stopReply = (sessionId: string) => getStreamController(sessionId)?.abort()
 
+export const compactToNewChat = async (sourceId: string, replyId: string, signal: AbortSignal) => {
+  const source = getSession(sourceId)
+  const available = () =>
+    get().activeId === sourceId &&
+    !get().importingHistory &&
+    !deletingSessions.has(sourceId) &&
+    !getStreamController(sourceId)
+  if (!source || !available()) {
+    return
+  }
+  const path = getVisibleMessages(source)
+  const last = path.at(-1)
+  if (last?.role !== 'assistant' || last.id !== replyId || !isContextLimit(last)) {
+    return
+  }
+  const summary = await summarizeBranch(path, signal)
+  if (
+    !summary ||
+    signal.aborted ||
+    !available() ||
+    getSession(sourceId)?.messages !== source.messages
+  ) {
+    return
+  }
+
+  const now = Date.now()
+  const id = createId()
+  const title = translate('compactTitle', { title: source.title || translate('untitledChat') })
+  const session = appendBranch({ id, title, createdAt: now, updatedAt: now, messages: [] }, null, [
+    {
+      role: 'user',
+      id: createId(),
+      content: translate('compactRequest'),
+      files: [],
+      createdAt: now,
+    },
+    {
+      role: 'assistant',
+      id: createId(),
+      model: MODEL,
+      prefix: false,
+      status: 'done',
+      blocks: [{ type: 'text', text: summary }],
+      createdAt: now,
+    },
+  ])
+  touchSession(id)
+  set((state) => ({
+    sessions: [toSessionSummary(session), ...state.sessions],
+    sessionCache: { ...state.sessionCache, [id]: session },
+    activeId: id,
+  }))
+  persist(id)
+}
+
 /**
  * 提交指定会话的最新草稿；null 表示新建会话。
  * 同步接收成功才清空草稿，附件原件由会话接管；保存失败仍通过保存入口重试。
@@ -1083,6 +1141,9 @@ const streamReply = async (sessionId: string, initial: AssistantMessage, request
           // 已收到 message_delta 的结束原因，只是缺了结尾的 message_stop
           reply = settleReply(reply, 'done', Date.now())
         } else if (error instanceof ApiError) {
+          if (error.contextLimit) {
+            reply = { ...reply, contextLimit: true }
+          }
           reply = settleReply(reply, 'error', Date.now(), {
             kind: error.kind,
             message: error.message,

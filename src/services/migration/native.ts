@@ -1,5 +1,6 @@
 import { Capacitor, type PluginListenerHandle } from '@capacitor/core'
 import { InAppBrowser } from '@capgo/capacitor-inappbrowser'
+import { ensureApiKey } from '../../components/settings/settingsDialogState.js'
 import { isNewArchive, migrationStep, renderMigrationOverlay } from './driver.js'
 
 type Progress = (message: string, automatic?: boolean) => void
@@ -260,6 +261,9 @@ export async function createOfficialCredential(
 export async function openOfficialAccount(
   url: 'https://platform.deepseek.com/usage' | 'https://platform.deepseek.com/api_keys'
 ) {
+  if (!ensureApiKey()) {
+    return
+  }
   await InAppBrowser.openWebView({
     url,
     title: 'DeepSeek 官方账户',

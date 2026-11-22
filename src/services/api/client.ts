@@ -39,7 +39,8 @@ export class ApiError extends Error {
   constructor(
     readonly kind: ApiErrorKind,
     message: string | TranslationMessage,
-    readonly status?: number
+    readonly status?: number,
+    readonly contextLimit = false
   ) {
     super(typeof message === 'string' ? message : translate(message.key, message.params))
     this.name = 'ApiError'
@@ -53,17 +54,22 @@ const isErrorBody = (value: unknown): value is ApiErrorBody =>
   'error' in value &&
   typeof (value as ApiErrorBody).error?.message === 'string'
 
+const isContextLimitBody = ({ error }: ApiErrorBody) =>
+  [error.code, error.type].some(
+    (value) => typeof value === 'string' && value.toLowerCase() === 'context_length_exceeded'
+  )
+
 const readErrorResponse = async (
   response: Response,
   kind: 'http' | 'protocol' = 'http',
   fallback = response.statusText
 ): Promise<ApiError> => {
   const text = await response.text().catch(() => '')
-  let message = text || fallback
+  const message = text || fallback
   try {
     const body: unknown = JSON.parse(text)
     if (isErrorBody(body)) {
-      message = body.error.message
+      return new ApiError(kind, body.error.message, response.status, isContextLimitBody(body))
     }
   } catch {
     // 非 JSON 响应体直接展示原文
@@ -180,7 +186,7 @@ export async function* streamMessage(
         }
       }
       if (isErrorBody(payload)) {
-        throw new ApiError('stream', payload.error.message)
+        throw new ApiError('stream', payload.error.message, undefined, isContextLimitBody(payload))
       }
       if (eventName === 'error') {
         throw new ApiError('stream', data)

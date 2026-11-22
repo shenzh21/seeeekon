@@ -1,4 +1,10 @@
 export const zh = {
+  compactChat: '压缩并新建对话',
+  compactHint: '可用当前 API 分段总结本分支的文字。摘要按 API 用量计费，附件仅保留文件名。',
+  compactWorking: '正在整理摘要…',
+  compactIncomplete: '未能生成完整摘要，请重试。',
+  compactTitle: '{title}（续聊）',
+  compactRequest: '请将上一段对话整理成摘要，供后续对话参考。',
   voiceInputNativePermissionDenied: '无法使用麦克风，请在系统设置中允许 seeeekon 录音，并确认系统麦克风开关已开启。',
   pinnedChats: '置顶',
   pinChat: '置顶对话',
